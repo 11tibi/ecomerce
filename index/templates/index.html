@@ -1,0 +1,393 @@
+{% extends 'base.html' %}
+{% block css %}
+    <link rel="stylesheet" href="../static/index/style.css">
+{#    <script>new WOW().init();</script>#}
+{% endblock %}
+{% block title %}
+    App
+{% endblock %}
+{% block content %}
+    {#https://mdbootstrap.com/snippets/jquery/mdbootstrap/50504?action=full_screen_mode#html-tab-view#}
+
+    <!--Carousel Wrapper-->
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#777"></rect>
+                    <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
+                </svg>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#777"></rect>
+                    <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
+                </svg>
+            </div>
+            <div class="carousel-item">
+                <svg class="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400"
+                     xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide"
+                     preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                    <rect width="100%" height="100%" fill="#777"></rect>
+                    <text x="50%" y="50%" fill="#555" dy=".3em">First slide</text>
+                </svg>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+                data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!--Main layout-->
+    <main>
+        <div class="container">
+
+            <!--Navbar-->
+            <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
+
+                <!-- Navbar brand -->
+                <span class="navbar-brand">Categories:</span>
+
+                <!-- Collapse button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                        aria-controls="basicExampleNav"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse" id="basicExampleNav">
+
+                    <!-- Links -->
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">All
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shirts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sport wears</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Outwears</a>
+                        </li>
+
+                    </ul>
+                    <!-- Links -->
+
+
+                        <div class="container justify-content-center">
+                            <form action="" method="GET">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="input-group mb-3"><input type="text" class="form-control input-text"
+                                                                             placeholder="Search products...."
+                                                                             aria-label="Recipient's username"
+                                                                             aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-warning btn-lg" type="button"><i
+                                                        class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                </div>
+                <!-- Collapsible content -->
+
+            </nav>
+            <!--/.Navbar-->
+
+            <!--Section: Products v.3-->
+            <section class="text-center mb-4">
+
+                {% for i in '12345' %}
+                    <!--Grid row-->
+                    <div class="row wow fadeIn">
+
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4">
+
+                            <!--Card-->
+                            <div class="card">
+
+                                <!--Card image-->
+                                <div class="view overlay">
+                                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUPEhIVFRUVFRUVFRUVFRUVFRUVFRUXFxUVFRUYHSggGB0lHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDi0ZFRktLS0rNy0tLTctNzc3Ny0tLS0tLS03NzctNystKzctKy03LS0tLTcrLS0tNys3Ny03N//AABEIAJ8BPgMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDjA0IqCwBIRYAkGogIjUICCwBCKoMkUgMqpAQWEBBYQEGokBINJAQaiQEFhAQWGYDMG9xICI1FgMiwgILCAooIgoCCmggLoCRQEUAEUASKACgIKAgqAEFBCKAhFAQUBAAIKAhFAQUBMwUBAAAQFQAFRQAAAAAAAAFIgKgAqBQAKAAABoC4hQAKAuoAqACiAKIUAAA0AIigAi4AqKCCxABUBUFBAAAAAAAAAAAAAAAAAAFEBUAAAAAF1FQAAAAAABRAURQQAAgAAoIKgKgAAAEAAFBFEAVAFRdQFEAXcQMAEUDAiAAAoigCLQAoAAAAAAAAAAAqAAABAAAAAAABUUwEAAABAAAAAIAAAqAKYgC0QBRAFAAAwAAAAAAARQAAAAAAANAAAABAABSAgqAAAAACgIAKACBQAKAAAKCAKgAAAAAACggKCAogAAACAqoAAABQFQKAahQUSpQaEoCiUBSoAtEAUSgKJQFEAUQBRAFEoCiAKIAogAlQFWqyA1RkBqjKgpWSgtSiAqs0BarICiUBatZKC0SpQbqVmrQaqIAtEKC1azSgpUqUGqu6xVBaVAFpUQG6VmlB/9k="
+                                         class="card-img-top" alt="">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                                <!--Card image-->
+
+                                <!--Card content-->
+                                <div class="card-body text-center">
+                                    <!--Category & Title-->
+                                    <a href="" class="grey-text">
+                                        <h5>Shirt</h5>
+                                    </a>
+                                    <h5>
+                                        <strong>
+                                            <a href="" class="dark-grey-text">Denim shirt
+                                                <span class="badge badge-pill danger-color">NEW</span>
+                                            </a>
+                                        </strong>
+                                    </h5>
+
+                                    <h4 class="font-weight-bold blue-text">
+                                        <strong>120$</strong>
+                                    </h4>
+
+                                </div>
+                                <!--Card content-->
+
+                            </div>
+                            <!--Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4">
+
+                            <!--Card-->
+                            <div class="card">
+
+                                <!--Card image-->
+                                <div class="view overlay">
+                                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUPEhIVFRUVFRUVFRUVFRUVFRUVFRUXFxUVFRUYHSggGB0lHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDi0ZFRktLS0rNy0tLTctNzc3Ny0tLS0tLS03NzctNystKzctKy03LS0tLTcrLS0tNys3Ny03N//AABEIAJ8BPgMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDjA0IqCwBIRYAkGogIjUICCwBCKoMkUgMqpAQWEBBYQEGokBINJAQaiQEFhAQWGYDMG9xICI1FgMiwgILCAooIgoCCmggLoCRQEUAEUASKACgIKAgqAEFBCKAhFAQUBAAIKAhFAQUBMwUBAAAQFQAFRQAAAAAAAAFIgKgAqBQAKAAABoC4hQAKAuoAqACiAKIUAAA0AIigAi4AqKCCxABUBUFBAAAAAAAAAAAAAAAAAAFEBUAAAAAF1FQAAAAAABRAURQQAAgAAoIKgKgAAAEAAFBFEAVAFRdQFEAXcQMAEUDAiAAAoigCLQAoAAAAAAAAAAAqAAABAAAAAAABUUwEAAABAAAAAIAAAqAKYgC0QBRAFAAAwAAAAAAARQAAAAAAANAAAABAABSAgqAAAAACgIAKACBQAKAAAKCAKgAAAAAACggKCAogAAACAqoAAABQFQKAahQUSpQaEoCiUBSoAtEAUSgKJQFEAUQBRAFEoCiAKIAogAlQFWqyA1RkBqjKgpWSgtSiAqs0BarICiUBatZKC0SpQbqVmrQaqIAtEKC1azSgpUqUGqu6xVBaVAFpUQG6VmlB/9k="
+                                         class="card-img-top" alt="">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                                <!--Card image-->
+
+                                <!--Card content-->
+                                <div class="card-body text-center">
+                                    <!--Category & Title-->
+                                    <a href="" class="grey-text">
+                                        <h5>Sport wear</h5>
+                                    </a>
+                                    <h5>
+                                        <strong>
+                                            <a href="" class="dark-grey-text">Sweatshirt</a>
+                                        </strong>
+                                    </h5>
+
+                                    <h4 class="font-weight-bold blue-text">
+                                        <strong>139$</strong>
+                                    </h4>
+
+                                </div>
+                                <!--Card content-->
+
+                            </div>
+                            <!--Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Grid column-->
+                        <div class="col-lg-3 col-md-6 mb-4">
+
+                            <!--Card-->
+                            <div class="card">
+
+                                <!--Card image-->
+                                <div class="view overlay">
+                                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUPEhIVFRUVFRUVFRUVFRUVFRUVFRUXFxUVFRUYHSggGB0lHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDi0ZFRktLS0rNy0tLTctNzc3Ny0tLS0tLS03NzctNystKzctKy03LS0tLTcrLS0tNys3Ny03N//AABEIAJ8BPgMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDjA0IqCwBIRYAkGogIjUICCwBCKoMkUgMqpAQWEBBYQEGokBINJAQaiQEFhAQWGYDMG9xICI1FgMiwgILCAooIgoCCmggLoCRQEUAEUASKACgIKAgqAEFBCKAhFAQUBAAIKAhFAQUBMwUBAAAQFQAFRQAAAAAAAAFIgKgAqBQAKAAABoC4hQAKAuoAqACiAKIUAAA0AIigAi4AqKCCxABUBUFBAAAAAAAAAAAAAAAAAAFEBUAAAAAF1FQAAAAAABRAURQQAAgAAoIKgKgAAAEAAFBFEAVAFRdQFEAXcQMAEUDAiAAAoigCLQAoAAAAAAAAAAAqAAABAAAAAAABUUwEAAABAAAAAIAAAqAKYgC0QBRAFAAAwAAAAAAARQAAAAAAANAAAABAABSAgqAAAAACgIAKACBQAKAAAKCAKgAAAAAACggKCAogAAACAqoAAABQFQKAahQUSpQaEoCiUBSoAtEAUSgKJQFEAUQBRAFEoCiAKIAogAlQFWqyA1RkBqjKgpWSgtSiAqs0BarICiUBatZKC0SpQbqVmrQaqIAtEKC1azSgpUqUGqu6xVBaVAFpUQG6VmlB/9k="
+                                         class="card-img-top" alt="">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                                <!--Card image-->
+
+                                <!--Card content-->
+                                <div class="card-body text-center">
+                                    <!--Category & Title-->
+                                    <a href="" class="grey-text">
+                                        <h5>Sport wear</h5>
+                                    </a>
+                                    <h5>
+                                        <strong>
+                                            <a href="" class="dark-grey-text">Grey blouse
+                                                <span class="badge badge-pill primary-color">bestseller</span>
+                                            </a>
+                                        </strong>
+                                    </h5>
+
+                                    <h4 class="font-weight-bold blue-text">
+                                        <strong>99$</strong>
+                                    </h4>
+
+                                </div>
+                                <!--Card content-->
+
+                            </div>
+                            <!--Card-->
+
+                        </div>
+                        <!--Grid column-->
+
+                        <!--Fourth column-->
+                        <div class="col-lg-3 col-md-6 mb-4">
+
+                            <!--Card-->
+                            <div class="card">
+
+                                <!--Card image-->
+                                <div class="view overlay">
+                                    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxISEhUPEhIVFRUVFRUVFRUVFRUVFRUVFRUXFxUVFRUYHSggGB0lHRUVITEhJSkrLi4uFx8zODMtNygtLisBCgoKDQ0NDg0NDi0ZFRktLS0rNy0tLTctNzc3Ny0tLS0tLS03NzctNystKzctKy03LS0tLTcrLS0tNys3Ny03N//AABEIAJ8BPgMBIgACEQEDEQH/xAAXAAEBAQEAAAAAAAAAAAAAAAAAAQIH/8QAFhABAQEAAAAAAAAAAAAAAAAAABEB/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAH/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwDjA0IqCwBIRYAkGogIjUICCwBCKoMkUgMqpAQWEBBYQEGokBINJAQaiQEFhAQWGYDMG9xICI1FgMiwgILCAooIgoCCmggLoCRQEUAEUASKACgIKAgqAEFBCKAhFAQUBAAIKAhFAQUBMwUBAAAQFQAFRQAAAAAAAAFIgKgAqBQAKAAABoC4hQAKAuoAqACiAKIUAAA0AIigAi4AqKCCxABUBUFBAAAAAAAAAAAAAAAAAAFEBUAAAAAF1FQAAAAAABRAURQQAAgAAoIKgKgAAAEAAFBFEAVAFRdQFEAXcQMAEUDAiAAAoigCLQAoAAAAAAAAAAAqAAABAAAAAAABUUwEAAABAAAAAIAAAqAKYgC0QBRAFAAAwAAAAAAARQAAAAAAANAAAABAABSAgqAAAAACgIAKACBQAKAAAKCAKgAAAAAACggKCAogAAACAqoAAABQFQKAahQUSpQaEoCiUBSoAtEAUSgKJQFEAUQBRAFEoCiAKIAogAlQFWqyA1RkBqjKgpWSgtSiAqs0BarICiUBatZKC0SpQbqVmrQaqIAtEKC1azSgpUqUGqu6xVBaVAFpUQG6VmlB/9k="
+                                         class="card-img-top" alt="">
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+                                </div>
+                                <!--Card image-->
+
+                                <!--Card content-->
+                                <div class="card-body text-center">
+                                    <!--Category & Title-->
+                                    <a href="" class="grey-text">
+                                        <h5>Outwear</h5>
+                                    </a>
+                                    <h5>
+                                        <strong>
+                                            <a href="" class="dark-grey-text">Black jacket</a>
+                                        </strong>
+                                    </h5>
+
+                                    <h4 class="font-weight-bold blue-text">
+                                        <strong>219$</strong>
+                                    </h4>
+
+                                </div>
+                                <!--Card content-->
+
+                            </div>
+                            <!--Card-->
+
+                        </div>
+                        <!--Fourth column-->
+
+                    </div>
+                    <!--Grid row-->
+                {% endfor %}
+
+            </section>
+            <!--Section: Products v.3-->
+
+            <!--Pagination-->
+            <nav class="d-flex justify-content-center wow fadeIn">
+                <ul class="pagination pg-blue">
+
+                    <!--Arrow left-->
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+
+                    <li class="page-item active">
+                        <a class="page-link" href="#">1
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">2</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">3</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">4</a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">5</a>
+                    </li>
+
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!--Pagination-->
+
+        </div>
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer text-center font-small mt-4 wow fadeIn">
+        <hr class="my-4">
+
+        <!-- Social icons -->
+        <div class="pb-4">
+            <a href="#" target="_blank">
+                <i class="fab fa-facebook-f mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-twitter mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-youtube mr-3"></i>
+            </a>
+
+            <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
+                <i class="fab fa-google-plus-g mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-dribbble mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-pinterest mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-github mr-3"></i>
+            </a>
+
+            <a href="#" target="_blank">
+                <i class="fab fa-codepen mr-3"></i>
+            </a>
+        </div>
+        <!-- Social icons -->
+
+    </footer>
+    <!--/.Footer-->
+{% endblock %}

@@ -1,5 +1,4 @@
 from django.db import models
-from accounts.models import User
 
 # Create your models here.
 
@@ -18,7 +17,7 @@ class Categories(models.Model):
 
 class Discount(models.Model):
     active = models.BooleanField()
-    discount_percent = models.DecimalField(max_digits=3)
+    discount_percent = models.DecimalField(max_digits=3, decimal_places=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -72,9 +71,9 @@ class Specs(models.Model):
 
 class Reviews(models.Model):
     prod = models.ForeignKey(Product, on_delete=models.RESTRICT)
-    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user = models.ForeignKey('accounts.User', on_delete=models.RESTRICT)
     description = models.TextField()
-    rating = models.DecimalField(max_digits=1)
+    rating = models.DecimalField(max_digits=1, decimal_places=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

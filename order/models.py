@@ -1,14 +1,12 @@
 from django.db import models
-from accounts.models import User
-from product.models import Product
 
 # Create your models here.
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user = models.ForeignKey('accounts.User', on_delete=models.RESTRICT)
     order_number = models.CharField(max_length=100)
-    discount = models.DecimalField(max_digits=3)
+    discount = models.DecimalField(max_digits=3, decimal_places=0)
     shipping_cost = models.FloatField()
     total = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -19,7 +17,7 @@ class Order(models.Model):
 
 
 class OrderItems(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.RESTRICT)
+    product = models.ForeignKey('product.Product', on_delete=models.RESTRICT)
     order = models.ForeignKey(Order, on_delete=models.RESTRICT)
     quantity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

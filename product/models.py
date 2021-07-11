@@ -27,6 +27,7 @@ class Discount(models.Model):
 
 class Inventory(models.Model):
     quantity = models.IntegerField()
+    sold = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -35,6 +36,7 @@ class Inventory(models.Model):
 
 
 class Product(models.Model):
+    # todo add brand
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Categories, on_delete=models.RESTRICT)
     discount = models.ForeignKey(Discount, on_delete=models.RESTRICT)

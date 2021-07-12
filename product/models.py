@@ -17,7 +17,7 @@ class Categories(models.Model):
 
 class Discount(models.Model):
     active = models.BooleanField()
-    discount_percent = models.DecimalField(max_digits=3, decimal_places=0)
+    old_price = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -42,6 +42,7 @@ class Product(models.Model):
     discount = models.ForeignKey(Discount, on_delete=models.RESTRICT)
     inventory = models.ForeignKey(Inventory, on_delete=models.RESTRICT)
     link = models.CharField(max_length=100)
+    image = models.CharField(max_length=100)
     price = models.FloatField()
     SKU = models.CharField(max_length=50, unique=True)
     desc = models.TextField()

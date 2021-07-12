@@ -19,6 +19,52 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+    <style>
+        .dropdown-menu {
+            min-width: 200px;
+        }
+
+        .dropdown-menu {
+            min-width: 400px;
+        }
+
+        .dropdown-menu.columns-3 {
+            min-width: 600px;
+        }
+
+        .dropdown-menu li a {
+            padding: 5px 15px;
+            font-weight: 300;
+        }
+
+        .multi-column-dropdown {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .multi-column-dropdown li a {
+            display: block;
+            clear: both;
+            line-height: 1.428571429;
+            color: #333;
+            white-space: normal;
+        }
+
+        .multi-column-dropdown li a:hover {
+            text-decoration: none;
+            color: #262626;
+            background-color: #999;
+        }
+
+        @media (max-width: 767px) {
+            .dropdown-menu.multi-column {
+                min-width: 240px !important;
+                overflow-x: hidden;
+            }
+        }
+    </style>
+
     {% block css %}{% endblock %}
     <title>{% block title %} Title {% endblock %}</title>
 </head>
@@ -82,8 +128,46 @@
                     <li class="nav-item active">
                         <a class="nav-link waves-effect text-white" href="{% url 'categories' %}">Categori</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link waves-effect text-white" href="{% url 'products_page' %}">Categori</a>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown">Three Column <b
+                                class="caret"></b></a>
+                        <ul class="dropdown-menu multi-column columns-3">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <ul class="multi-column-dropdown">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-4">
+                                    <ul class="multi-column-dropdown">
+                                        <li><a href="{% url 'products_page' %}">Categori</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </div>
+                                <div class="col-sm-4">
+                                    <ul class="multi-column-dropdown">
+                                        <li><a href="#">Action</a></li>
+                                        <li><a href="#">Another action</a></li>
+                                        <li><a href="#">Something else here</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">Separated link</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">One more separated link</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ul>
                     </li>
                 </ul>
 

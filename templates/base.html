@@ -129,43 +129,21 @@
                         <a class="nav-link waves-effect text-white" href="{% url 'categories' %}">Categori</a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown">Three Column <b
+                        <a href="#" class="nav-link dropdown-toggle text-white" data-toggle="dropdown">Produse<b
                                 class="caret"></b></a>
                         <ul class="dropdown-menu multi-column columns-3">
+
                             <div class="row">
-                                <div class="col-sm-4">
-                                    <ul class="multi-column-dropdown">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-4">
-                                    <ul class="multi-column-dropdown">
-                                        <li><a href="{% url 'products_page' %}">Categori</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-4">
-                                    <ul class="multi-column-dropdown">
-                                        <li><a href="#">Action</a></li>
-                                        <li><a href="#">Another action</a></li>
-                                        <li><a href="#">Something else here</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">Separated link</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="#">One more separated link</a></li>
-                                    </ul>
-                                </div>
+                            {% for category in all_categories %}
+                                {% if forloop.counter0|divisibleby:3 %}
+                                    </div><div class="row">
+                                {% endif %}
+                                    <div class="col-sm-4">
+                                        <ul class="multi-column-dropdown">
+                                            <li><a href="{% url 'products' category.link %}">{{ category.name }}</a></li>
+                                        </ul>
+                                    </div>
+                            {% endfor %}
                             </div>
                         </ul>
                     </li>

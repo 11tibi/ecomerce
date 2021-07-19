@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render, redirect
 from django.views import View
-from product.models import Product, Categories
+from product.models import Product
 
 # Create your views here.
 
@@ -16,7 +16,7 @@ class Products(View):
 
 class ProductsPage(View):
     def get(self, request, category, page):
-        paginator = Paginator(Product.objects.filter(category__link=category).all(), 60)
+        paginator = Paginator(Product.objects.select_related('discount', 'category', 'inventory').filter(category__link=category).all(), 60)
 
         try:
             products = paginator.page(page[4:])
@@ -30,12 +30,18 @@ class ProductsPage(View):
         page_range = list(paginator.page_range)[start_index:end_index]
 
         context = {
-            'count': Product.objects.filter(category__link='laptop').count(),
             'products': products, 
             'page_range': page_range,
+            'category': category,
         }
 
         return render(request, 'products/products.html', context)
 
     def post(self, request, category, page):
         pass
+
+
+class ProductPage(View):
+    def get(self, request, category, product, product_code):
+        context = {}
+        return render(request, 'products/product.html', context)

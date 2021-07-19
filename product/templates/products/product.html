@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+
+{% endblock %}
+{% block title %}
+    App
+{% endblock %}
+{% block content %}
+    <div class="container mt-3">
+        <nav aria-label="breadcrumb bg-transparent">
+            <ol class="breadcrumb" style="background-color: #ffffff !important;">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
+        </nav>
+        <hr>
+    </div>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-sm-5">
+                <div>
+                    <div class="text-center">
+                        <img src="{% static 'img/products/0a62504b905a40e78f82762dfc10e0bd.png' %}" alt="product image"
+                             style="width: 75%; height: auto;">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <h1 class="h4">Laptop LENOVO ThinkBook 15 IIL, Intel Core i7-1065G7 pana la 3.9GHz, 15.6" Full HD, 16GB,
+                    SSD 512GB</h1>
+
+                <div class="my-3">
+                    <a href="#" class='text-secondary'>Laptop</a>
+                </div>
+
+                <div class="rating my-4">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fas fa-star-half-alt" aria-hidden="true"></i>
+                    <i class="far fa-star" aria-hidden="true"></i>
+                </div>
+
+                <div class="price my-3">
+                    <h2 class="h5">2500 Lei</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

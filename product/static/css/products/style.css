@@ -32,3 +32,13 @@ a.no-dec:hover {
     background-color: #eee;
     border-color: #ddd;
 }
+
+.price{
+    color: #FA4857!important;
+}
+
+.oldprice{
+    color: #968c87;
+    text-decoration: line-through;
+    font-size: 25px;
+}

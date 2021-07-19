@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load tags %}
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products/style.css' %}">
@@ -58,16 +59,12 @@
                     <li class="list-group-item borderless">
                         <a href="#" class="no-dec" id="check">Amd</a>
                     </li>
-                    <li class="list-group-item borderless">
-                        <a href="#" class="no-dec" id="check">{{ count }}</a>
-                        {#                        60 / page#}
-                    </li>
                 </ul>
             </div>
 
             <div class="col-md-10">
                 <div class="row my-3">
-                    <h1>Laptop</h1>
+                    <h1 class="text-capitalize">{{ category }}</h1>
                 </div>
                 <div class="row my-4">
                     <div class="d-inline my-3 col-md-7">
@@ -144,8 +141,8 @@
                         </nav>
                     </div>
                 </div>
-
-
+                {% load static %}
+{#                {% load tags %}#}
                 {% for i in '1'|make_list %}
                     <div class="row">
                         {% for product in products %}
@@ -156,27 +153,43 @@
                             <div class="col-md-3 mt-2">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="card-img-actions"><img
-                                                src="https://res.cloudinary.com/dxfq3iotg/image/upload/v1562074043/234.png"
-                                                class="card-img img-fluid" width="96" height="350" alt=""></div>
+                                        <div class="card-img-actions">
+                                            <img
+                                                src="{% static 'img/products/'|add:product.image %}"
+                                                class="card-img img-fluid" width="96" height="350" alt="">
+                                        </div>
                                     </div>
                                     <div class="card-body bg-light text-center">
                                         <div class="mb-2">
                                             <h6 class="font-weight-semibold mb-2">
-                                                <a href="#" class="text-default mb-2"
+                                                <a href="{% url 'product' category=category product=product.link product_code=product.SKU %}" class="text-default mb-2"
                                                    data-abc="true">{{ product.name }}</a>
                                             </h6>
-                                            <a href="{% url 'products' category='laptop' %}" class="text-muted"
+                                            <a href="{% url 'products' category=product.category %}" class="text-muted"
                                                data-abc="true">{{ product.category }}</a>
                                         </div>
-                                        <h3 class="mb-0 font-weight-semibold">{{ product.price }}&nbsp;Lei</h3>
+                                        <h3 class="mb-0 font-weight-semibold price">{{ product.price }}&nbsp;Lei</h3>
+
+                                        {% if product.discount.active %}
+                                            <h3 class="mb-0 font-weight-semibold oldprice">{{ product.price|sub:product.discount.old_price }}&nbsp;Lei</h3>
+                                        {% else %}
+                                            <h3 class="mb-0 font-weight-semibold oldprice">&nbsp;</h3>
+                                        {% endif %}
+
+                                        {% if product.inventory.quantity > 10 %}
+                                            <h3 class="mb-0 font-weight-light text-success">In stoc</h3>
+                                        {% elif product.inventory.quantity == 0 %}
+                                            <h3 class="mb-0 font-weight-light text-danger">Stoc epuizat</h3>
+                                        {% else %}
+                                            <h3 class="mb-0 font-weight-light text-warning">Stoc limitat</h3>
+                                        {% endif %}
                                         <div>
                                             <i class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i
                                                 class="fa fa-star star"></i> <i class="fa fa-star star"></i> <i
                                                 class="fa fa-star star"></i>
                                         </div>
                                         <div class="text-muted mb-3">34 reviews</div>
-                                        <button type="button" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i>
+                                        <button type="button" class="btn bg-cart"><i class="fas fa-shopping-cart mr-2"></i>
                                             Add to
                                             cart
                                         </button>

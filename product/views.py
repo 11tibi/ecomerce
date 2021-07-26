@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render, redirect
 from django.views import View
-from product.models import Product
+from product.models import Product, Specs
 
 # Create your views here.
 
@@ -43,5 +43,11 @@ class ProductsPage(View):
 
 class ProductPage(View):
     def get(self, request, category, product, product_code):
-        context = {}
+        prod = Product.objects.select_related('discount', 'category', 'inventory').filter(category__link=category, link=product).all()
+        specs = Specs.objects.select_related('prod').filter(prod__link=product).all()
+
+        context = {
+            'product': prod[0],
+            'specs': specs,
+        }
         return render(request, 'products/product.html', context)

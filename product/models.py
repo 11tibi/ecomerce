@@ -44,6 +44,7 @@ class Product(models.Model):
     link = models.CharField(max_length=100)
     image = models.CharField(max_length=100)
     price = models.FloatField()
+    warranty = models.IntegerField()
     SKU = models.CharField(max_length=50, unique=True)
     desc = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -65,11 +66,12 @@ class ProductImage(models.Model):
 
 class Specs(models.Model):
     prod = models.ForeignKey(Product, on_delete=models.RESTRICT)
-    name = models.CharField(max_length=100)
-    description = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=50)
+    tag = models.CharField(max_length=50)
 
     def __str__(self):
-        return f"{self.name} : {self.description}"
+        return f"{self.name} : {self.description} : {self.tag}"
 
 
 class Reviews(models.Model):

@@ -23,6 +23,8 @@ class Login(View):
         user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
+            if 'next' in request.GET:
+                return redirect(request.GET['next'])
             return redirect('register')
         else:
             messages.info(request, "Username or password incorrect")

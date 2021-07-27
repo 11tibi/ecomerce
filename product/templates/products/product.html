@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
-
+    <link rel="stylesheet" href="{% static 'css/products/product page.css' %}">
+    <script src="{% static 'js/products/main.js' %}"></script>
 {% endblock %}
 {% block title %}
     {{ product.name }}
@@ -176,79 +177,48 @@
                 <hr>
                 <h5 class="mt-4">Adaugă o recenzie</h5>
                 <p>Adresa ta de email nu va fi publicată</p>
-                <a class="btn btn-warning btn-block my-3" href="{% url 'login' %}" style="max-width: 450px; margin: auto;">Trebuie sa fii autentificat pentru a aduga o recenzie.</a>
+                {% if not user.is_authenticated %}
+                    <a class="btn btn-warning btn-block my-3" href="{% url 'login' %}?next={{ request.path }}"
+                       style="max-width: 450px; margin: auto;">Trebuie sa fi autentificat pentru a aduga o recenzie.</a>
+                {% endif %}
                 {% if user.is_authenticated %}
-                    <div class="my-3">
-                        <ul class="rating mb-0">
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-star fa-sm text-primary"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-star fa-sm text-primary"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-star fa-sm text-primary"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fas fa-star fa-sm text-primary"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="far fa-star fa-sm text-primary"></i>
-                                </a>
-                        </ul>
-                    </div>
                     <div>
-                        <!-- Your review -->
-                        <div class="md-form md-outline">
-                            <textarea id="form76" class="md-textarea form-control pr-6" rows="4"></textarea>
-                            <label for="form76">Your review</label>
-                        </div>
-                        <!-- Name -->
-                        <div class="md-form md-outline">
-                            <input type="text" id="form75" class="form-control pr-6">
-                            <label for="form75">Name</label>
-                        </div>
-                        <!-- Email -->
-                        <div class="md-form md-outline">
-                            <input type="email" id="form77" class="form-control pr-6">
-                            <label for="form77">Email</label>
-                        </div>
-                        <div class="text-right pb-2">
-                            <button type="button" class="btn btn-primary">Add a review</button>
-                        </div>
+                        <form method="post" action="">
+                            <div class="rating-stars container" style="margin-left: 35px;">
+                                <ul id="stars" class="">
+                                    <li class="input-rating star" data-value="1">
+                                        <i class="fas fa-star fa-sm"></i>
+                                    </li>
+                                    <li class="input-rating star" data-value="2">
+                                        <i class="fas fa-star fa-sm"></i>
+                                    </li>
+                                    <li class="input-rating star" data-value="3">
+                                        <i class="fas fa-star fa-sm"></i>
+                                    </li>
+                                    <li class="input-rating star" data-value="4">
+                                        <i class="fas fa-star fa-sm"></i>
+                                    </li>
+                                    <li class="input-rating star" data-value="5">
+                                        <i class="fas fa-star fa-sm"></i>
+                                    </li>
+                                </ul>
+                                <input type="number" id="rating-hidden" max="5" min="1" hidden>
+                            </div>
+
+                            <div class="container my-4">
+                                <label for="review" class="md-form md-outline row align-items-center my-3"
+                                       style="max-width: 150rem; margin: auto;"><b>Your review</b></label>
+                                <textarea id="review"
+                                          class="md-textarea form-control pr-6 md-form md-outline row align-items-center"
+                                          rows="4" style="max-width: 150rem; margin: auto;"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary btn-block my-2"
+                                    style="max-width: 450px; margin: auto;">Adaugă o recenzie
+                            </button>
+                        </form>
                     </div>
                 {% endif %}
             </div>
         </div>
-
     </div>
-    <!-- Classic tabs -->
-
-    <script>
-        $(document).ready(function () {
-            var quantitiy = 0;
-            $('.quantity-right-plus').click(function (e) {
-                e.preventDefault();
-                var quantity = parseInt($('#quantity').val());
-                $('#quantity').val(quantity + 1);
-            });
-            $('.quantity-left-minus').click(function (e) {
-                e.preventDefault();
-                var quantity = parseInt($('#quantity').val());
-                if (quantity > 1) {
-                    $('#quantity').val(quantity - 1);
-                }
-            });
-
-        });
-    </script>
 {% endblock %}

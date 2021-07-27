@@ -1,0 +1,13 @@
+.input-rating {
+    display: inline-block;
+    font-size: 30px;
+    color: #ccc;
+}
+
+.rating-stars ul > li.star.hover > i.fas {
+  color: #f0ad4e;
+}
+
+.rating-stars ul > li.star.selected > i.fas {
+  color: #f0ad4e;
+}

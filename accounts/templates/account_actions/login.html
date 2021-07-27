@@ -40,7 +40,7 @@
                                     {{ message }}
                                     </div>
                                 {% endfor %}
-
+                                <input type="hidden" name="next" value="{{ request.GET.next }}"/>
                                 <input type="submit" value="Log In" class="btn btn-block py-2 btn-primary btn-custom">
                                 <span class="text-center my-3 d-block">or</span>
 

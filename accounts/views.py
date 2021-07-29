@@ -28,6 +28,7 @@ class Login(View):
             return redirect('register')
         else:
             messages.info(request, "Username or password incorrect")
+            return render(request, 'account_actions/login.html')
 
 
 class Register(View):

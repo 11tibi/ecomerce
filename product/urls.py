@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.urls import path
-from .views import Products, ProductsPage, ProductPage
+from .views import Products, ProductsPage, ProductPage, AddReview
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('review/<slug:product>', login_required(AddReview.as_view()), name='add_review'),
     path('<str:category>', Products.as_view(), name='products'),
     path('<slug:category>/<str:page>', ProductsPage.as_view(), name='products_page'),
     path('<slug:category>/<slug:product>/<slug:product_code>', ProductPage.as_view(), name='product'),

@@ -66,6 +66,9 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
+    def name(self):
+        return f'{self.first_name} {self.last_name}'
+
 
 class ShoppingCart(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
@@ -76,3 +79,13 @@ class ShoppingCart(models.Model):
 
     def __str__(self):
         return self.quantity
+
+
+class ProductBought(models.Model):
+    user = models.ForeignKey(User, on_delete=models.RESTRICT)
+    product = models.ForeignKey('product.Product', on_delete=models.RESTRICT)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.user} {self.product}'

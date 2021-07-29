@@ -11,3 +11,8 @@
 .rating-stars ul > li.star.selected > i.fas {
   color: #f0ad4e;
 }
+
+.review-input {
+    max-width: 140rem;
+    margin: auto;
+}

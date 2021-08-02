@@ -125,7 +125,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab"
-                   aria-controls="reviews" aria-selected="false">Recenzii ({{ reviews.all.count }})</a>
+                   aria-controls="reviews" aria-selected="false">Recenzii (<span id="reviews-number">{{ reviews.all.count }}</span>)</a>
             </li>
         </ul>
         <div class="tab-content container" id="advancedTabContent">
@@ -167,7 +167,7 @@
 
 
             <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                <h5><span>({{ reviews.all.count }})</span> Recenzii <span>{{ product.name }}</span></h5>
+                <h5>(<span id="reviews-number">{{ reviews.all.count }}</span>) Recenzii <span>{{ product.name }}</span></h5>
                 {% for review in reviews %}
                     <div class="media mt-3 my-5">
                         <img class="d-flex mr-3 z-depth-1"
@@ -182,7 +182,12 @@
                                         <span class="ml-3">Editat la: {{ review.updated_at|date:'d-m-Y' }}</span>
                                     {% endif %}
                                     {% if review.user.id == request.user.id %}
-                                        <a href="#" onclick="return false;" class="text-success" id="edit">Editează: <i class="fas fa-edit"></i></a>
+                                        <a href="#" onclick="return false;" class="text-success mx-1" id="edit">Editează:
+                                            <i class="fas fa-edit"></i></a>
+                                        <a href="#" onclick="return false;" class="text-danger mx-1" id="delete"
+                                           data-id={{ review.id }} data-toggle="modal" data-target="#exampleModal">Șterge:
+                                            <i class="fa fa-trash"></i></a>
+
                                     {% endif %}
                                 </div>
                                 <div class="rating">
@@ -230,10 +235,10 @@
                                         </div>
                                         <div class="row" style="max-width: 150rem; margin: auto;">
                                             <input type="submit" class="btn btn-primary btn-block my-2 col-sm-6 px-2">
-                                            <input class="btn btn-warning btn-block my-2 col-sm-6 px-2" value="Close" id="btn-edit-close">
+                                            <input class="btn btn-warning btn-block my-2 col-sm-6 px-2" value="Close"
+                                                   id="btn-edit-close">
                                         </div>
                                     </form>
-
                                 </div>
                             {% else %}
                                 <p class="mb-0" id="">{{ review.description }}</p>
@@ -247,8 +252,15 @@
                     <a class="btn btn-warning btn-block my-3" href="{% url 'login' %}?next={{ request.path }}"
                        style="max-width: 450px; margin: auto;">Trebuie sa fi autentificat pentru a aduga o recenzie.</a>
                 {% endif %}
+
                 {% if user.is_authenticated and not user_review and product_owned %}
-                    <div>
+                    <div id="add-review-section">
+                {% elif not product_owned %}
+                    <div class="text-warning">Trebuie să deții produsul pentru a putea adăuga o recenzie</div>
+                    <div hidden id="add-review-section">
+                {% else %}
+                    <div hidden id="add-review-section">
+                {% endif %}
                         <h5 class="mt-4">Adaugă o recenzie</h5>
                         <p>Adresa ta de email nu va fi publicată</p>
                         <form method="post" action="{% url 'add_review' product.link %}">
@@ -283,30 +295,52 @@
                                    style="max-width: 450px; margin: auto;">
                         </form>
                     </div>
-                {% elif not product_owned %}
-                    <div class="text-warning">Trebuie să deții produsul pentru a putea adăuga o recenzie</div>
-                {% endif %}
+
             </div>
         </div>
     </div>
+
+    <!-- bootstrap delete modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Sigur vrei să ștergi recenzia?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Nu</button>
+                    <button type="button" class="btn btn-primary" id="delete-review">Da</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- bootstrap delete modal -->
+
     <script>
+
+
         $(document).ready(function () {
             $("#edit").click(function () {
                 $("#review-description").hide()
                 $("#edit").hide()
                 $("#edit_form").show()
                 $("#review").val($("#review-description").text())
-                console.log({{ user_review.rating }})
                 $("#rating-hidden").val({{ user_review.rating }})
 
                 var stars = $("#stars li").parent().children('li.star');
-                console.log(stars[1])
                 for (let i = 0; i < {{ user_review.rating }}; i++) {
                     $(stars[i]).addClass('selected');
                 }
             });
             $("#btn-edit-close").click(function () {
-                if ($("#edit_form").is(":visible")){
+                if ($("#edit_form").is(":visible")) {
                     $("#review-description").show()
                     $("#edit").show()
                     $("#edit_form").hide()

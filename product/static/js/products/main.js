@@ -44,3 +44,29 @@ $(document).ready(function () {
         }
     });
 });
+
+$(document).ready(function () {
+    $("#delete-review").click(function () {
+        var id = $("#delete").data("id");
+
+        $.ajax({
+            method: 'post',
+            url: "/product/delete-review",
+            data: {
+                "id": id,
+            },
+            dataType: 'json',
+            success: function (response) {
+                $("#exampleModal").modal("hide");
+                $("#delete").parents().eq(3).remove();
+                $("[id=reviews-number]").text($("#reviews-number").text() - 1);
+                $("#add-review-section").attr('hidden', false);
+
+                alert(response['responseJSON']['msg']);
+            },
+            error: function (response) {
+                alert(response['responseJSON']['msg']);
+            },
+        });
+    })
+})

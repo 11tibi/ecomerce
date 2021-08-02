@@ -1,8 +1,11 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.utils.decorators import method_decorator
+from django.http import HttpResponseRedirect, JsonResponse
 from django.db.models import Avg
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from product.models import Product, Specs, Reviews
 from accounts.models import User, ProductBought
 from .forms import ReviewForm
@@ -77,7 +80,10 @@ class AddReview(View):
                 filter(prod__link=product, user__id=request.user.id).values('id')
 
             form = ReviewForm(request.POST)
-            if form.is_valid():
+
+            user_id = User.objects.get(id=request.user.id)
+            product_id = Product.objects.get(id=product_id[0]['product__id'])
+            if form.is_valid() and user_id:
                 if review_exists.exists():
                     obj = Reviews.objects.get(id=review_exists[0]['id'])
                     obj.rating = form.cleaned_data["stars"]
@@ -85,9 +91,29 @@ class AddReview(View):
                     obj.save()
                 else:
                     obj = Reviews()
-                    obj.user = request.user.id
+                    obj.user = user_id
+                    obj.prod = product_id
                     obj.rating = form.cleaned_data["stars"]
                     obj.description = form.cleaned_data["text_review"]
-                    obj.prod = product_id
                     obj.save()
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class DeleteReview(View):
+    def post(self, request):
+        status = 200
+        msg = ''
+        try:
+            status = 200
+            msg = 'Review-ul a fost șters cu succes.'
+            review_exist = Reviews.objects.filter(id=request.POST.get("id"), user=request.user.id).exists()
+            if review_exist:
+                Reviews.objects.get(id=request.POST.get("id")).delete()
+            else:
+                raise ObjectDoesNotExist
+        except ObjectDoesNotExist as e:
+            status = 404
+            msg = 'A aparut o eroare. Incearcă mai tarziu.'
+        finally:
+            return JsonResponse({"msg": msg}, status=status)

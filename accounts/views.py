@@ -1,12 +1,16 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.files.storage import FileSystemStorage
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
 from .create_form import CreateUser
 from .decorators import unauthenticated_user
-
+from .models import User
 
 # Create your views here.
 
@@ -54,3 +58,39 @@ class Logout(View):
     def get(self, request):
         logout(request)
         return redirect('login')
+
+
+class Dashboard(View):
+    @method_decorator(login_required(login_url='login'))
+    def get(self, request):
+        user = User.objects.get(id=request.user.id)
+        context = {
+            'user_info': user,
+        }
+        return render(request, 'dashboard/dashboard.html', context)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class UploadProfileImg(View):
+    @method_decorator(login_required(login_url='login'))
+    def post(self, request):
+        img = request.FILES['img']
+        print('\n\n1\n\n')
+        if self.__validate(img):
+            print('\n\n2\n\n')
+            obj = User.objects.get(id=request.user.id)
+            print('\n\na\n\n')
+            # f = UploadProfilePicture(request.POST, instance=obj)
+            # f.save()
+            obj.profile_pic = request.FILES['img']
+            print('\n\nb\n\n')
+            obj.save()
+            return JsonResponse({'msg': 'Success'}, status=200)
+        else:
+            return JsonResponse({'msg': 'Invalid file'}, status=404)
+
+    def __validate(self, img_name):
+        VALID_EXTENSIONS = ['jpg', 'jpeg', 'png']
+        if str(img_name).split('.')[-1] in VALID_EXTENSIONS:
+            return True
+        return False

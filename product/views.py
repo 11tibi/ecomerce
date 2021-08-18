@@ -75,7 +75,6 @@ class AddReview(View):
     def post(self, request, product):
         product_id = ProductBought.objects.select_related('product', 'user').\
             filter(product__link=product, user__id=request.user.id).values('product__id')
-
         if product_id.count() == 1:
             review_exists = Reviews.objects.select_related('prod', 'user').\
                 filter(prod__link=product, user__id=request.user.id).values('id')

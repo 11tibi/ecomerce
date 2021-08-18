@@ -1,6 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.core.files.storage import FileSystemStorage
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.views import View
@@ -29,7 +28,7 @@ class Login(View):
             login(request, user)
             if 'next' in request.GET:
                 return redirect(request.GET['next'])
-            return redirect('register')
+            return redirect('accounts:register')
         else:
             messages.info(request, "Username or password incorrect")
             return render(request, 'account_actions/login.html')
@@ -57,7 +56,7 @@ class Logout(View):
     @method_decorator(login_required(login_url='login'))
     def get(self, request):
         logout(request)
-        return redirect('login')
+        return redirect('accounts:login')
 
 
 class Dashboard(View):
@@ -75,15 +74,9 @@ class UploadProfileImg(View):
     @method_decorator(login_required(login_url='login'))
     def post(self, request):
         img = request.FILES['img']
-        print('\n\n1\n\n')
         if self.__validate(img):
-            print('\n\n2\n\n')
             obj = User.objects.get(id=request.user.id)
-            print('\n\na\n\n')
-            # f = UploadProfilePicture(request.POST, instance=obj)
-            # f.save()
             obj.profile_pic = request.FILES['img']
-            print('\n\nb\n\n')
             obj.save()
             return JsonResponse({'msg': 'Success'}, status=200)
         else:

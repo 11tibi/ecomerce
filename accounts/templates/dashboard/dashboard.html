@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/dashboard/dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard/style.css' %}">
 {% endblock %}
 {% block title %}Dashboard{% endblock %}
 {% block content %}
@@ -13,7 +13,8 @@
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center">
                                 {% if user_info.profile_pic %}
-								    <img src="{% static user_info.profile_pic %}" alt="user" class="rounded-circle p-1 bg-primary" width="110">
+{#                                    {% static user_info.profile_pic %} {{user_info.profile_pic}}#}
+								    <img src="{{user_info.profile_pic.url}}" alt="user" class="rounded-circle p-1 bg-primary" width="110">
                                 {% else %}
                                     <img src="{% static 'img/default_user_img.svg' %}" alt="user" class="rounded-circle p-1 bg-primary" width="110">
                                 {% endif %}
@@ -122,7 +123,7 @@
                 form_data.append('img', img_data);
                 $.ajax({
                     method: 'post',
-                    url: "{% url 'upload_profile' %}",
+                    url: "{% url 'accounts:upload_profile' %}",
                     data: form_data,
                     cache: false,
                     contentType: false,

@@ -38,7 +38,7 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    profile_pic = models.ImageField(max_length=70, upload_to='user', null=True, default=None)
+    profile_pic = models.ImageField(max_length=70, upload_to='accounts/static/img/user', null=True, default=None)
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=128)
     phone_number = models.CharField(max_length=11)

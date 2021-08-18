@@ -2,6 +2,7 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/products/product page.css' %}">
+    <script src="{% static 'js/products/cart.js' %}"></script>
 {% endblock %}
 {% block title %}
     {{ product.name }}
@@ -87,17 +88,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 my-2">
-                        <button type="button" class="btn btn-outline-info btn-block">
-                            Cumpara
-                        </button>
-                    </div>
-                    <div class="col-sm-6 my-2">
-                        <button type="button" class="btn btn-warning btn-block">
-                            <i class="fas fa-shopping-cart mr-2" style="color: #fa3c37"></i>
-                            Adauga in cos
-                        </button>
-                    </div>
+                    {% if product.inventory.quantity > 0  %}
+                        <div class="col-sm-6 my-2">
+                            <button type="button" class="btn btn-outline-info btn-block">
+                                Cumpara
+                            </button>
+                        </div>
+                        <div class="col-sm-6 my-2">
+                            <button type="button" class="btn btn-warning btn-block addcart" data-identifier="{{ product.SKU }}">
+                                <i class="fas fa-shopping-cart mr-2" style="color: #fa3c37"></i>
+                                Adauga in coș
+                            </button>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

@@ -1,5 +1,6 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.db.models import Avg
@@ -7,7 +8,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from product.models import Product, Specs, Reviews
-from accounts.models import User, ProductBought
+from accounts.models import User, ProductBought, ShoppingCart
 from .forms import ReviewForm
 
 # Create your views here.
@@ -117,3 +118,30 @@ class DeleteReview(View):
             msg = 'A aparut o eroare. Incearcă mai tarziu.'
         finally:
             return JsonResponse({"msg": msg}, status=status)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class AddToCart(View):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            return JsonResponse({'redirect': str(reverse('accounts:login'))}, status=302)
+        try:
+            product = Product.objects.select_related('inventory').filter(SKU=request.POST.get('identifier')).first()
+
+            if product and product.inventory.quantity > 0:
+                item = ShoppingCart.objects.select_related('product').filter(user=request.user.id, product=product.id).first()
+                if item:
+                    item.quantity += 1
+                    item.save()
+                else:
+                    new_item = ShoppingCart(
+                        product=Product.objects.get(id=product.id),
+                        user=User.objects.get(id=request.user.id),
+                        quantity=1
+                    )
+                    new_item.save()
+                return JsonResponse({"msg": 'success'}, status=200)
+            else:
+                return JsonResponse({"msg": 'fail'}, status=404)
+        except ObjectDoesNotExist:
+            return JsonResponse({'msg': 'Produsul nu exista'}, status=404)

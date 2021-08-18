@@ -62,6 +62,67 @@
                 overflow-x: hidden;
             }
         }
+
+        .dropdown .dropdown-menu {
+            padding: 20px;
+            top: 30px !important;
+            width: 350px !important;
+            left: -80px !important;
+            box-shadow: 0px 5px 30px black;
+        }
+
+        .total-header-section {
+            border-bottom: 1px solid #d2d2d2;
+        }
+
+        .total-section p {
+            margin-bottom: 20px;
+        }
+
+        .cart-detail {
+            padding: 15px 0px;
+        }
+
+        .cart-detail-img img {
+            width: 100%;
+            height: 100%;
+            padding-left: 15px;
+        }
+
+        .cart-detail-product p {
+            margin: 0px;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .cart-detail .price {
+            font-size: 12px;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+
+        .cart-detail .count {
+            color: #C2C2DC;
+        }
+
+        .checkout {
+            border-top: 1px solid #d2d2d2;
+            padding-top: 15px;
+        }
+
+        .checkout .btn-primary {
+            border-radius: 50px;
+            height: 50px;
+        }
+
+        .dropdown-menu:before {
+            content: " ";
+            position: absolute;
+            top: -20px;
+            right: 260px;
+            border: 10px solid transparent;
+            border-bottom-color: #fff;
+        }
     </style>
 
     {% block css %}{% endblock %}
@@ -93,19 +154,67 @@
             </div>
             <div class="col-sm-3">
                 <div class="d-flex align-items-center">
-                    <a class="d-inline-block" href="#" style="font-size:28px; text-decoration:none;">
-                        <span class="fas fa-shopping-cart" style="color: #fa8348"></span>
-                    </a>
-                    <span class="badge badge-notify"
-                          style=" background: #B6E30B; color: white; position: relative; top: -15px; left: -10px;">3</span>
-                    <div class="d-inline-block ml-sm-4">Continut:</div>&nbsp;
-                    <span>100 Lei</span>
-                    {% if user.is_authenticated  %}
-                        <a class="ml-3" href="{% url 'dashboard' %}">
-                            user
+                    <div class="dropdown">
+                        <a class="d-inline-block" data-toggle="dropdown" href="#"
+                           style="font-size:28px; text-decoration:none;">
+                            <span class="fas fa-shopping-cart" style="color: #fa8348"></span>
                         </a>
-                    {% endif %}
 
+                        <span class="badge badge-notify"
+                              style=" background: #B6E30B; color: white; position: relative; top: -15px; left: -10px;">3</span>
+
+                        <div class="dropdown-menu">
+                            <div class="row total-header-section">
+                                <div class="col-lg-6 col-sm-6 col-6">
+                                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span
+                                        class="badge badge-pill badge-danger">3</span>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                                    <p>Total: <span class="text-info">$2,978.24</span></p>
+                                </div>
+                            </div>
+                            <div class="row cart-detail">
+                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                    <img src="https://images-na.ssl-images-amazon.com/images/I/811OyrCd5hL._SX425_.jpg">
+                                </div>
+                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                    <p>Sony DSC-RX100M..</p>
+                                    <span class="price text-info"> $250.22</span> <span
+                                        class="count"> Quantity:01</span>
+                                </div>
+                            </div>
+                            <div class="row cart-detail">
+                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                    <img src="https://cdn2.gsmarena.com/vv/pics/blu/blu-vivo-48-1.jpg">
+                                </div>
+                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                    <p>Vivo DSC-RX100M..</p>
+                                    <span class="price text-info"> $500.40</span> <span
+                                        class="count"> Quantity:01</span>
+                                </div>
+                            </div>
+                            <div class="row cart-detail">
+                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                    <img src="https://static.toiimg.com/thumb/msid-55980052,width-640,resizemode-4/55980052.jpg">
+                                </div>
+                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                    <p>Lenovo DSC-RX100M..</p>
+                                    <span class="price text-info"> $445.78</span> <span
+                                        class="count"> Quantity:01</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
+                                    <button class="btn btn-primary btn-block">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                        {% if user.is_authenticated %}
+                            <a class="ml-3" href="{% url 'accounts:dashboard' %}">
+                                user
+                            </a>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -160,14 +269,14 @@
                 <ul class="navbar-nav nav-flex-icons ms-auto">
                     {% if user.is_authenticated %}
                         <li class="nav-item">
-                            <a class="nav-link waves-effect text-white" href="{% url 'logout' %}">Logout</a>
+                            <a class="nav-link waves-effect text-white" href="{% url 'accounts:logout' %}">Logout</a>
                         </li>
                     {% else %}
                         <li class="nav-item">
-                            <a class="nav-link waves-effect text-white" href="{% url 'login' %}">Login</a>
+                            <a class="nav-link waves-effect text-white" href="{% url 'accounts:login' %}">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link waves-effect text-white" href="{% url 'register' %}">Register</a>
+                            <a class="nav-link waves-effect text-white" href="{% url 'accounts:register' %}">Register</a>
                         </li>
                     {% endif %}
                 </ul>

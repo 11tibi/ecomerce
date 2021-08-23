@@ -20,3 +20,5 @@ def shopping_cart(request):
             'total_price': total_price['total_price'],
             'count': total_price['count'],
         }
+    else:
+        return {}

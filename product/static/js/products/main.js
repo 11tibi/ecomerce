@@ -30,22 +30,6 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    var quantitiy = 0;
-    $('.quantity-right-plus').click(function (e) {
-        e.preventDefault();
-        var quantity = parseInt($('#quantity').val());
-        $('#quantity').val(quantity + 1);
-    });
-    $('.quantity-left-minus').click(function (e) {
-        e.preventDefault();
-        var quantity = parseInt($('#quantity').val());
-        if (quantity > 1) {
-            $('#quantity').val(quantity - 1);
-        }
-    });
-});
-
-$(document).ready(function () {
     $("#delete-review").click(function () {
         var id = $("#delete").data("id");
 

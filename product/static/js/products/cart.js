@@ -11,7 +11,7 @@ $(document).ready(function () {
             dataType: 'json',
             statusCode: {
                 302: function(responseObject, textStatus, errorThrown) {
-                    window.location.href = responseObject['responseJSON']['redirect']
+                    window.location.href = responseObject['responseJSON']['redirect'];
                 }
             },
             success: function (responseObject) {

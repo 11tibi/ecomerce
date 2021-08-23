@@ -122,9 +122,10 @@ class DeleteReview(View):
 @method_decorator(csrf_exempt, name='dispatch')
 class AddToCart(View):
     def post(self, request):
-        if not request.user.is_authenticated:
-            return JsonResponse({'redirect': str(reverse('accounts:login'))}, status=302)
         try:
+            if not request.user.is_authenticated:
+                return JsonResponse({'redirect': str(reverse('accounts:login'))}, status=302)
+
             product = Product.objects.select_related('inventory').filter(SKU=request.POST.get('identifier')).first()
 
             if product and product.inventory.quantity > 0:

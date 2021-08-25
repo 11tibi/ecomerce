@@ -145,3 +145,13 @@ class AddToCart(View):
                 return JsonResponse({"msg": 'fail'}, status=404)
         except ObjectDoesNotExist:
             return JsonResponse({'msg': 'Produsul nu exista'}, status=404)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class DeleteCartItem(View):
+    def post(self, request):
+        try:
+            ShoppingCart.objects.filter(id=request.POST.get('id'), user=request.user.id).delete()
+            return JsonResponse({'msg': 'Produsul a fost sters cu succes din cos'}, status=200)
+        except ObjectDoesNotExist:
+            return JsonResponse({'msg': 'Invalid item'}, status=404)

@@ -15,6 +15,7 @@ $(document).ready(function () {
                 }
             },
             success: function (responseObject) {
+                $('#cart-dropdown').load(' #cart-dropdown')
                 alert(responseObject['msg']);
             },
             error: function (data, statusText, xhr) {

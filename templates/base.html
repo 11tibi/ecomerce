@@ -157,7 +157,7 @@
             <div class="col-sm-3">
                 <div class="d-flex align-items-center">
                     {% if user.is_authenticated %}
-                        <div class="dropdown">
+                        <div class="dropdown" id="cart-dropdown">
                             <a class="d-inline-block" data-toggle="dropdown" href="#"
                                style="font-size:28px; text-decoration:none;">
                                 <span class="fas fa-shopping-cart" style="color: #fa8348"></span>
@@ -173,7 +173,7 @@
                                         Coș:
                                     </div>
                                     <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
-                                        <p>Total: <span class="text-info">{{ total_price }} Lei</span></p>
+                                        <p>Total: <span class="text-info">{{ total_price|floatformat }} Lei</span></p>
                                     </div>
                                 </div>
                                 {% for item in cart %}
@@ -188,14 +188,14 @@
                                                    style="">{{ item.product.name }}</a>
                                             </div>
                                             <div class="row my-3">
-                                                <span class="col-sm-5 price text-info">{{ item.product.price }} Lei</span>
+                                                <span class="col-sm-5 price">{{ item.product.price }} Lei</span>
                                                 <span class="col-sm-5 count">Cantitate {{ item.quantity }}</span>
                                             </div>
                                         </div>
                                         <div class="col-lg-2 col-sm-2 col-2 my-auto">
-                                            <a href="" class="">
+                                            <button type="button" class="btn delete-cart-item" data-id="{{ item.id }}">
                                                 <i class="fa fa-times text-danger" aria-hidden="true"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 {% endfor %}
@@ -256,6 +256,7 @@
                                     {% endif %}
                                     <div class="col-sm-4">
                                         <ul class="multi-column-dropdown">
+                                        <ul class="multi-column-dropdown">
                                             <li><a href="{% url 'products' category.link %}">{{ category.name }}</a>
                                             </li>
                                         </ul>
@@ -289,5 +290,28 @@
 {% endblock %}
 
 {% block content %}{% endblock %}
+<script>
+    $(document).ready(function () {
+        $(document).on("click", ".delete-cart-item", function (e) {
+            e.preventDefault();
+            let id = $(this).data("id");
+            $.ajax({
+                method: 'post',
+                url: "/product/delete-cart-item",
+                dataType: 'json',
+                data: {
+                    'id': id,
+                },
+                success: function (responseObject) {
+                    $('#cart-dropdown').load(window.location.pathname + ' #cart-dropdown');
+                    alert(responseObject['msg']);
+                },
+                error: function (responseObject) {
+                    alert(responseObject['msg']);
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

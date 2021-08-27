@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
+{% endblock %}
+{% block title %}Coș{% endblock %}
+{% block content %}
+    <div class="container my-5" id="">
+        <div class="row" id="cart-content">
+            <div class="col-md-8 cart">
+                <div class="title">
+                    <div class="row">
+                        <div class="col">
+                            <h4><b>Coș</b></h4>
+                        </div>
+                        <div class="col align-self-center text-right text-muted">3 items</div>
+                    </div>
+                </div>
+
+                <!-- -->
+                <hr>
+                {% for item in cart %}
+                <div class="row">
+                    <div class="row main align-items-center">
+                        <div class="col-2"><img class="img-fluid" src="{% static 'img/products/'|add:item.product.image %}"></div>
+                        <div class="col-5">
+                            <a href="{% url 'product' category=item.product.category.link product=item.product.link product_code=item.product.SKU %}" class="row text-truncate">{{ item.product.name }}</a>
+                            <a href="{% url 'products' category=item.product.category.link %}" class="row text-muted">{{ item.product.category }}</a>
+                        </div>
+                        <div class="col-2 d-flex justify-content-center"><a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a></div>
+                        <div class="col-2 d-flex justify-content-center">44.00 Lei</div>
+                        <div class="col-1">
+                            <button type="button" class="btn delete-cart-item" data-id="{{ item.id }}">
+                                <i class="fa fa-times text-muted" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                {% endfor %}
+
+                <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            </div>
+            <div class="col-md-4 summary">
+                <div>
+                    <h5><b>Sumar</b></h5>
+                </div>
+                <hr>
+                <div class="row my-4">
+                    <div class="col">Subtotal</div>
+                    <div class="col text-right">{{ total_price|floatformat }} Lei</div>
+                </div>
+                <div class="row my-1">
+                    <p class="col-7">Taxă livrare comandă:</p>
+                    <p class="col-5 text-right">5 Lei</p>
+                </div>
+                <div class="row my-1">
+                    <p class="col">Reducere voucher</p>
+                    <p class="col text-right">-15 Lei</p>
+                </div>
+                <div class="row my-1">
+                    <label for="code" class="col-sm-7 pt-1">Cod voucher (optional)</label>
+                    <input class="form-control col-sm-5" id="code" placeholder="Enter your code">
+                </div>
+                <hr>
+                <div class="row my-3">
+                    <div class="col">PREȚ TOTAL</div>
+                    <div class="col text-right">137.00 Lei</div>
+                </div>
+                <div class="row my-1 float-right">
+                    <p class="h6 col">
+                        <small>Prețurile sunt exprimate in lei si conțin TVA</small>
+                    </p>
+                </div>
+                <button class="btn btn-primary btn-block btn-next">Finalizare comandă</button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

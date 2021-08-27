@@ -1,0 +1,46 @@
+.summary {
+    background-color: #ddd;
+    padding: 4vh;
+    color: rgb(65, 65, 65)
+}
+
+.main {
+    margin: 0;
+    padding: 2vh 0;
+    width: 100%
+}
+
+a {
+    color: black
+}
+
+a:hover {
+    color: black;
+    text-decoration: none
+}
+
+#code {
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.253), rgba(255, 255, 255, 0.185)), url("https://img.icons8.com/small/16/000000/long-arrow-right.png");
+    background-repeat: no-repeat;
+    background-position-x: 95%;
+    background-position-y: center
+}
+
+.btn-next {
+    background-color: #fb8633 !important;
+    border-color: #fb8633 !important;
+}
+
+.btn-next:hover,
+.btn-next:active,
+.btn-next:visited,
+.btn-next:focus {
+    background-color: #fb771a !important;
+    border-color: #fb771a !important;
+    outline-color: #fb8633 !important;
+    box-shadow: #fb8633 !important;
+}
+
+.delete-cart-item {
+    outline: none !important;
+}

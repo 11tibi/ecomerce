@@ -23,7 +23,10 @@ class Cart(View):
 
 class Checkout(View):
     def get(self, request):
-        pass
+        context = {
+
+        }
+        return render(request, 'cart/checkout.html', context)
 
     def post(self, request):
         pass
@@ -31,3 +34,5 @@ class Checkout(View):
 # https://getbootstrap.com/docs/4.0/examples/checkout/
 # https://bbbootstrap.com/snippets/bootstrap-ecommerce-shopping-cart-item-summary-44021562
 # https://bbbootstrap.com/snippets/bootstrap-ecommerce-checkout-page-payment-options-50848752
+
+# https://github.com/byteweaver/django-coupons

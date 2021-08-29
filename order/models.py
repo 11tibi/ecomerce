@@ -3,6 +3,21 @@ from django.db import models
 # Create your models here.
 
 
+class County(models.Model):
+    county = models.CharField(max_length=50, unique=True, null=False)
+
+    def __str__(self):
+        return self.county
+
+
+class City(models.Model):
+    county = models.ForeignKey(County, on_delete=models.RESTRICT, null=False)
+    city = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.city
+
+
 class Order(models.Model):
     user = models.ForeignKey('accounts.User', on_delete=models.RESTRICT)
     order_number = models.CharField(max_length=100)
@@ -28,8 +43,8 @@ class OrderItems(models.Model):
 
 
 class Deposit(models.Model):
-    city = models.CharField(max_length=100)
-    country = models.CharField(max_length=100)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT)
+    county = models.ForeignKey(County, on_delete=models.RESTRICT)
     address_line1 = models.CharField(max_length=100)
     address_line2 = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -52,9 +67,9 @@ class DeliveryInformation(models.Model):
 
 class ShippingCompany(models.Model):
     company_name = models.CharField(max_length=50)
-    city = models.CharField(max_length=50)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT)
     postal_code = models.CharField(max_length=50)
-    contry = models.CharField(max_length=50)
+    county = models.ForeignKey(County, on_delete=models.RESTRICT)
     address_line1 = models.CharField(max_length=50)
     address_line2 = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=11)
@@ -72,9 +87,9 @@ class ShippingInformation(models.Model):
     delivery_date = models.DateTimeField()
     courier_phone_number = models.CharField(max_length=11)
     client_phone_number = models.CharField(max_length=11)
-    city = models.CharField(max_length=50)
+    city = models.ForeignKey(City, on_delete=models.RESTRICT)
     postal_code = models.CharField(max_length=50)
-    country = models.CharField(max_length=50)
+    county = models.ForeignKey(County, on_delete=models.RESTRICT)
     address_line1 = models.CharField(max_length=50)
     address_line2 = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)

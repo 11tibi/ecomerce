@@ -1,12 +1,71 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block css %}
-
+    <script src="{% static 'js/cart/checkout.js' %}"></script>
+    <style>
+        select option[selected] {
+            display: none;
+        }
+    </style>
 {% endblock %}
 {% block content %}
 <div class="container my-4">
     <div class="col-sm-8">
         <p class="h2">Adresă facturare</p>
         <hr>
+        <form method="POST" id="checkout-form">
+            {% csrf_token %}
+            <div class="row my-2">
+                <div class="col-sm-6">
+                    {{ form.fname.label }}
+                    {{ form.fname }}
+                </div>
+                <div class="col-sm-6">
+                    {{ form.lname.label }}
+                    {{ form.lname }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    {{ form.email.label }}
+                    {{ form.email }}
+                </div>
+            </div>
+            <div class="row my-2">
+                <div class="col-sm-12">
+                    <p class="h3">Adresa</p>
+                </div>
+            </div>
+            <div class="row my-2" id="select-customer">
+                {% for choice in form.customer_type %}
+                    <div class="custom-control custom-radio custom-control-inline">
+                       {{ choice.label_tag }} {{ choice }}
+                     </div>
+                {% endfor %}
+            </div>
+        <div class="row my-2">
+            <div class="col-sm-12">
+                {{ form.phone.label }}
+                {{ form.phone }}
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-sm-12">
+                {{ form.street.label }}
+                {{ form.street }}
+            </div>
+        </div>
+        <div class="row my-2">
+            <div class="col-sm-6">
+                {{ form.county.label }}
+                {{ form.county }}
+            </div>
+            <div class="col-sm-6">
+                {{ form.city.label }}
+                {{ form.city }}
+            </div>
+        </div>
+        </form>
     </div>
     <div class="col-sm-4">
 

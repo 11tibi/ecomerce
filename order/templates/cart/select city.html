@@ -1,0 +1,8 @@
+{% block selectcity %}
+    <select name="city" class="form-control" disabled="" id="id_city">
+        <option value="" selected="">Alege un oraș</option>
+        {% for city in cities %}
+            <option value="{{ city.id }}">{{ city.city }}</option>
+        {% endfor %}
+    </select>
+{% endblock %}

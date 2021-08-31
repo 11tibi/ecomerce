@@ -20,6 +20,8 @@ class City(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey('accounts.User', on_delete=models.RESTRICT)
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
     order_number = models.CharField(max_length=100)
     discount = models.DecimalField(max_digits=3, decimal_places=0)
     shipping_cost = models.FloatField()

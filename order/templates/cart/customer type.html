@@ -1,0 +1,32 @@
+{% block company %}
+<div id="company">
+    <hr>
+    <div class="row my-2">
+        <div class="col-sm-6">
+            Numele Companiei
+            <input type="text" name="company" maxlength="50" class="form-control" required="" id="id_company">
+        </div>
+        <div class="col-sm-6">
+            Nr. Inregistrare Registrul Comertului
+            <input type="text" name="company_reg_no" maxlength="50" class="form-control" required="" id="id_company_reg_no">
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-sm-6">
+            Bancă
+            <input type="text" name="bank" maxlength="50" class="form-control" required="" id="id_bank">
+        </div>
+        <div class="col-sm-6">
+            IBAN
+            <input type="text" name="iban" maxlength="50" class="form-control" required="" id="id_iban">
+        </div>
+    </div>
+    <div class="row my-2">
+        <div class="col-sm-6">
+            Cod fiscal
+            <input type="text" name="fiscal_code" maxlength="50" class="form-control" required="" id="id_fiscal_code">
+        </div>
+    </div>
+    <hr>
+</div>
+{% endblock %}

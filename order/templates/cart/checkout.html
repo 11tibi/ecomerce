@@ -2,73 +2,118 @@
 {% load static %}
 {% block css %}
     <script src="{% static 'js/cart/checkout.js' %}"></script>
-    <style>
-        select option[selected] {
-            display: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/cart/cart.css' %}">
 {% endblock %}
 {% block content %}
-<div class="container my-4">
-    <div class="col-sm-8">
-        <p class="h2">Adresă facturare</p>
-        <hr>
-        <form method="POST" id="checkout-form">
-            {% csrf_token %}
-            <div class="row my-2">
-                <div class="col-sm-6">
-                    {{ form.fname.label }}
-                    {{ form.fname }}
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="h2">Adresă facturare</p>
+                        <hr>
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    {{ form.lname.label }}
-                    {{ form.lname }}
+                <form method="POST" id="checkout-form">
+                    {% csrf_token %}
+                    <div class="row my-2">
+                        <div class="col-sm-6">
+                            {{ form.fname.label }}
+                            {{ form.fname }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form.lname.label }}
+                            {{ form.lname }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-12">
+                            <p class="h3">Adresa</p>
+                        </div>
+                    </div>
+                    <div class="row my-2" id="select-customer">
+                        {% for choice in form.customer_type %}
+                            <div class="custom-control custom-radio custom-control-inline">
+                                {{ choice.label_tag }} {{ choice }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-12">
+                            {{ form.phone.label }}
+                            {{ form.phone }}
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-12">
+                            {{ form.street.label }}
+                            {{ form.street }}
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-6">
+                            {{ form.county.label }}
+                            {{ form.county }}
+                        </div>
+                        <div class="col-sm-6">
+                            {{ form.city.label }}
+                            {{ form.city }}
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-12">
+                            <p class="h3">Detalii plată</p>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-12">
+                            <hr>
+                            <div class="form-check my-1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="flexRadioDefault1">
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    Online cu card bancar
+                                </label>
+                            </div>
+                            <hr>
+                            <div class="form-check my-1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault"
+                                       id="flexRadioDefault2">
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    Plată la livrare
+                                </label>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary btn-block btn-next">Pasul următor</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="h2">Sumar</p>
+                        <hr>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12">
-                    {{ form.email.label }}
-                    {{ form.email }}
+                <div class="row">
+                    <div class="col-sm-12">
+                        <p class="h4 text-secondary">Total:</p>
+                        <p class="h5 text-secondary">{{ total_price|floatformat }} Lei</p>
+                        <p class="h6 text-secondary"><small>Prețurile sunt exprimate în lei și conțin TVA</small></p>
+                    </div>
                 </div>
-            </div>
-            <div class="row my-2">
-                <div class="col-sm-12">
-                    <p class="h3">Adresa</p>
-                </div>
-            </div>
-            <div class="row my-2" id="select-customer">
-                {% for choice in form.customer_type %}
-                    <div class="custom-control custom-radio custom-control-inline">
-                       {{ choice.label_tag }} {{ choice }}
-                     </div>
-                {% endfor %}
-            </div>
-        <div class="row my-2">
-            <div class="col-sm-12">
-                {{ form.phone.label }}
-                {{ form.phone }}
             </div>
         </div>
-        <div class="row my-2">
-            <div class="col-sm-12">
-                {{ form.street.label }}
-                {{ form.street }}
-            </div>
-        </div>
-        <div class="row my-2">
-            <div class="col-sm-6">
-                {{ form.county.label }}
-                {{ form.county }}
-            </div>
-            <div class="col-sm-6">
-                {{ form.city.label }}
-                {{ form.city }}
-            </div>
-        </div>
-        </form>
     </div>
-    <div class="col-sm-4">
-
-    </div>
-</div>
 {% endblock %}

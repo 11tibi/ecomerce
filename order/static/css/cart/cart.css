@@ -44,3 +44,11 @@ a:hover {
 .delete-cart-item {
     outline: none !important;
 }
+
+select option[selected] {
+    display: none;
+}
+
+input[type='radio'] {
+    transform: scale(1.5);
+}

@@ -35,12 +35,21 @@ class Inventory(models.Model):
         return self.quantity
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
-    # todo add brand
     name = models.CharField(max_length=100)
     category = models.ForeignKey(Categories, on_delete=models.RESTRICT)
     discount = models.ForeignKey(Discount, on_delete=models.RESTRICT)
     inventory = models.ForeignKey(Inventory, on_delete=models.RESTRICT)
+    brand = models.ForeignKey(Brand, on_delete=models.RESTRICT)
     link = models.CharField(max_length=100)
     image = models.CharField(max_length=100)
     price = models.FloatField()

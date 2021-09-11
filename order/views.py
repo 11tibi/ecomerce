@@ -1,5 +1,5 @@
 from django.db.models import Sum, F
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.utils.decorators import method_decorator
@@ -23,14 +23,15 @@ class Cart(View):
         }
         return render(request, 'cart/cart.html', context)
 
-    def post(self, request):
-        pass
-
 
 class Checkout(View):
     def get(self, request):
+        total_price = ShoppingCart.objects.select_related('product').filter(user=request.user.id).aggregate(
+            total_price=Sum(F('product__price') * F('quantity')))
+
         context = {
             'form': CheckoutForm(),
+            'total_price': total_price['total_price'],
         }
         return render(request, 'cart/checkout.html', context)
 

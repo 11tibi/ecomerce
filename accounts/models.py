@@ -85,7 +85,6 @@ class ProductBought(models.Model):
     user = models.ForeignKey(User, on_delete=models.RESTRICT)
     product = models.ForeignKey('product.Product', on_delete=models.RESTRICT)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.user} {self.product}'

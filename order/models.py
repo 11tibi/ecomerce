@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -19,11 +20,16 @@ class City(models.Model):
 
 
 class Order(models.Model):
+
+    class CustomerType(models.TextChoices):
+        PERSON = 'F', _('Person')
+        COMPANY = 'C', _('Company')
+
     user = models.ForeignKey('accounts.User', on_delete=models.RESTRICT)
-    first_name = models.CharField(max_length=50)
-    last_name = models.CharField(max_length=50)
+    AWB = models.CharField(max_length=11)
+    customer_type = models.CharField(max_length=1, choices=CustomerType.choices, default=CustomerType.PERSON)
+    phone_number = models.CharField(max_length=11)
     order_number = models.CharField(max_length=100)
-    discount = models.DecimalField(max_digits=3, decimal_places=0)
     shipping_cost = models.FloatField()
     total = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -47,8 +53,8 @@ class OrderItems(models.Model):
 class Deposit(models.Model):
     city = models.ForeignKey(City, on_delete=models.RESTRICT)
     county = models.ForeignKey(County, on_delete=models.RESTRICT)
-    address_line1 = models.CharField(max_length=100)
-    address_line2 = models.CharField(max_length=100)
+    postal_code = models.CharField(max_length=6)
+    street = models.CharField(max_length=250)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -67,35 +73,29 @@ class DeliveryInformation(models.Model):
         return self.require_shipping
 
 
-class ShippingCompany(models.Model):
-    company_name = models.CharField(max_length=50)
-    city = models.ForeignKey(City, on_delete=models.RESTRICT)
-    postal_code = models.CharField(max_length=50)
-    county = models.ForeignKey(County, on_delete=models.RESTRICT)
-    address_line1 = models.CharField(max_length=50)
-    address_line2 = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=11)
-    email = models.CharField(max_length=255)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.company_name
-
-
 class ShippingInformation(models.Model):
     delivery = models.ForeignKey(DeliveryInformation, on_delete=models.RESTRICT)
-    shipping_company = models.ForeignKey(ShippingCompany, on_delete=models.RESTRICT)
-    delivery_date = models.DateTimeField()
-    courier_phone_number = models.CharField(max_length=11)
-    client_phone_number = models.CharField(max_length=11)
     city = models.ForeignKey(City, on_delete=models.RESTRICT)
-    postal_code = models.CharField(max_length=50)
     county = models.ForeignKey(County, on_delete=models.RESTRICT)
-    address_line1 = models.CharField(max_length=50)
-    address_line2 = models.CharField(max_length=50)
+    street = models.CharField(max_length=250)
+    postal_code = models.CharField(max_length=6)
+    delivery_date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.delivery_date
+
+
+class CompanyInformation(models.Model):
+    order_id = models.ForeignKey(Order, on_delete=models.RESTRICT)
+    company_name = models.CharField(max_length=100)
+    company_reg_no = models.CharField(max_length=20)
+    bank_name = models.CharField(max_length=100)
+    IBAN = models.CharField(max_length=15)
+    fiscal_code = models.CharField(max_length=10)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.company_name

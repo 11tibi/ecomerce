@@ -2,8 +2,8 @@
 <table>
     <tr>
         <td>
-            <h4>Database</h4>
-            <img src="img/db.png" alt="database">
+            <h4>Database structure</h4>
+            <img src="db.jpg" alt="database">
         </td>
     </tr>
 </table>
